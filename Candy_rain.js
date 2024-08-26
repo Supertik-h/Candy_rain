@@ -1,7 +1,4 @@
 /*
-First time? Check out the tutorial game:
-https://sprig.hackclub.com/gallery/getting_started
-
 @title: Candy_rain
 @author: 
 @tags: []
@@ -202,13 +199,15 @@ let level = 0
 let score = 0
 const levels = [
   map`
-....k
-.l...
+g....
 ..n..
-...g.
-...p.`
+.l..k
+.....
+.....
+..p..
+.....`
 ]
-addText(`Score: ${score}`,{x: 9, y: 0, color: color`0`})
+addText(`Score: ${score}`,{x: 7, y: 0, color: color`0`})
 setMap(levels[level])
 
 setPushables({
@@ -235,33 +234,52 @@ afterInput(() => {
     const appleSprite = getFirst(apple);
     const grapesSprite = getFirst(grapes);
     const bananaSprite = getFirst(banana);
-    getFirst(cake).y += 1
-    getFirst(apple).y +=1
-    getFirst(grapes).y +=1 
-    getFirst(banana).y +=1
-    if (cakeSprite.y === 4) {
-      console.log("Hello, world!");
-      cakeSprite.remove();
+
+
+/*
+if (appleSprite.x === apple.x && appleSprite.y === apple.y){
+      console.log("...");
+      score += 1
+      clearText()
+    addText(`Score: ${score}`,{x: 7, y: 0, color: color`0`})
     }
-    if (appleSprite.y === 4) {
-      console.log("Hello, world!");
-      appleSprite.remove();
+
+    */
+   if(tilesWith(player, apple).length >= 1){
+    console.log("Apple");
+    score += 1
+    clearText()
+    addText(`Score: ${score}`,{x: 7, y: 0, color: color`0`})
+    appleSprite.remove();
+  }
+    
+    if (cakeSprite) {
+      getFirst(cake).y += 1;
+      if (cakeSprite.y === 6) {
+        console.log("Cake removed!");
+        cakeSprite.remove();
+      }
     }
-    if (grapesSprite.y === 4) {
-      console.log("Hello, world!");
-      grapesSprite.remove();
+    if (appleSprite) {
+      getFirst(apple).y += 1;
+      if (appleSprite.y === 6) {
+        console.log("Apple removed!");
+        appleSprite.remove();
+      }
     }
-    if (bananaSprite.y === 4) {
-      console.log("Hello, world!");
-      bananaSprite.remove();
+    if (grapesSprite) {
+      getFirst(grapes).y += 1;
+      if (grapesSprite.y === 6) {
+        console.log("Grapes removed!");
+        grapesSprite.remove();
+      }
+    }
+    if (bananaSprite) {
+      getFirst(banana).y += 1;
+      if (bananaSprite.y === 6) {
+        console.log("Banana removed!");
+        bananaSprite.remove();
+      }
     }
   }
-  /*
-  getFirst(cake).y +=1  
-  getFirst(candy_floss).y +=1
-  getFirst(chocolate).y +=1
-  getFirst(bears).y +=1
-  getFirst(candy).y +=1
-  */
-  
 })
